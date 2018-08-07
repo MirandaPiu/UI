@@ -10,12 +10,13 @@ var lighting, ambient, keyLight, fillLight, backLight;
 var windowHalfX = window.innerWidth / 2;
 var windowHalfY = window.innerHeight / 2;
 
-init();
+init("http://ayeaye.ee.ucla.edu/stool.stl?height=50&legs=3&radius=30");
 render();
 
-function init() {
+function init(url) {
    	var footer=document.getElementById("footer");//---------------------------create in footer
 	container=document.createElement("div");
+	container.id="container1";
 	footer.appendChild(container);
 
     // CAMERA
@@ -29,7 +30,7 @@ function init() {
 
     // OBJECT
     var loader = new THREE.STLLoader();
-    loader.load( 'static/table.stl', function ( geometry ) {
+    loader.load( url, function ( geometry ) {
 
         var material = new THREE.MeshPhongMaterial( { color: 0x331a00, specular: 0x111111, shininess: 200 } );
         var mesh = new THREE.Mesh( geometry, material );
@@ -229,7 +230,10 @@ function analyzeFile(con)
 
 function save()
 {
-	
+	var child=document.getElementById("container1");
+	child.parentNode.removeChild(child);
+	init("http://ayeaye.ee.ucla.edu/stool.stl?height=30&legs=5&radius=20");
+	render();
 }
 
 

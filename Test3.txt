@@ -1,3 +1,9 @@
+Bench;
+	textbox, height: 10, 30;
+	textbox, radius, 15, 30;
+	dropdown, leg, 3, 3, 4, 5;
+~
+
 Table;
 	textbox, length: 30,80;
 	textbox, width: 30,80;
@@ -22,3 +28,5 @@ Chair;
 	dropdown, material, 3, plastic, wooden, stone;
 	dropdown, connections, 2, edge to edge, edge to face;
 ~
+
+
