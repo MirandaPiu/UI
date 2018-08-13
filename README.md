@@ -19,20 +19,20 @@ Instruction for developers
   Upload a input file. 1. Only .txt file is allowed to uploaded. 2. If it doesn’t generate controls successfully, please check whether the input format is correct. Format grammar will be introduced more detailed later. 3. If there is a error reminder after you upload the file, just fix the format error and refresh the website again before you upload a correct txt file.
 
 ### Input Format:  
- Category1;
-         *Inner Content*
-  ~
-  Category2;
-         *Inner Content*
-  ~
-  Category3;
-         *Inner Content*
-  ~
-  ... ... 
+ Category1;  
+         *Inner Content*  
+  ~  
+  Category2;  
+         *Inner Content*  
+  ~   
+  Category3;  
+         *Inner Content*   
+  ~     
+  ... ...    
   
-  Format of *Inner Content*:
-  * textbox, label for this textbox: lower bound, upper bound; 
-  * dropdown, label for this dropdown, num n of all choices, choice 1, choice 2, choice 3,...., choice n;
+  Format of *Inner Content*
+    * textbox, label for this textbox: lower bound, upper bound; 
+    * dropdown, label for this dropdown, num n of all choices, choice 1, choice 2, choice 3,...., choice n;
   
   Under this format, there will be a dropdown list of Category 1, Category 2, .....,  at the top of website. By selecting the dropdown list, you may see corresponding inner content. 
   
