@@ -2,9 +2,11 @@
                                                Instruction for Developers
 
 Tool Instruction:
+
 The tool I use is DW. One of the advantage is that it allows developers to have real-time view of how your website will look like. It’s mostly the same as you it on browsers, only if it comes to compatibility differences on various browsers or other problems from some libraries. Honestly, it will save you a lot of time.
 
 How to Run The Code:
+
 The first step is make sure you’ve got a DW. My version is DWCC 2018 though I think most of  other versions also work. And then you can download it directly from GitHub. All the extension libraries are already in the folder. So make sure you download them together. 
 
 The second step is to click the 15.html file directly in order to run it on a browser. You should have a view of 3D model on the right side of the website. If not, please follow:
