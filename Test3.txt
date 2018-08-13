@@ -9,9 +9,9 @@ Table;
 	textbox, width: 30,80;
 	textbox, height: 40,60;
 	textbox, upper edge height: 10,15;
-	textbox, upper leg width: 3,10;
+	textbox, upper leg width: 3,10; 
 	textbox, bottom leg width: 3,10;
-	dropdown, thickness, 3, 0.2, 0.4, 0.6;
+	dropdown, thickness, 2, 0.2, 0.4, 0.6;
 	dropdown, material, 3, plastic, wooden, stone;
 	dropdown, connections, 2, edge to edge, edge to face;
 ~

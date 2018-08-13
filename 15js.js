@@ -173,7 +173,7 @@ function analyzeFile(con)
 						input.type="text";
 						input.name="v";
 						input.value=y+"~"+z;
-						input.id="v";
+						input.id=inrrow[0]+"textbox"+c;
 						input.onfocus=function()
 						{
 							this.value="";
@@ -232,6 +232,7 @@ function save()
 {
 	var child=document.getElementById("container1");
 	child.parentNode.removeChild(child);
+	var s1=document.getElementById("Benchtextbox1").value;
 	init("http://ayeaye.ee.ucla.edu/stool.stl?height=30&legs=5&radius=20");
 	render();
 }
