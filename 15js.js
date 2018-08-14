@@ -240,6 +240,7 @@ function save()
 	var text = obj.options[index].text; // 选中文本
 	var value = obj.options[index].value; // 选中值
 	var s1=document.getElementById("Benchtextbox1").value;
+	//searching for id
 	
 	init("http://ayeaye.ee.ucla.edu/stool.stl?height=30&legs=5&radius=20");
 	render();
