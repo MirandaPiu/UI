@@ -287,7 +287,7 @@ function save()
 
 function category_onchange(val)
 {
-		  var select1 = document.getElementById('catagory');
+		  var select1 = document.getElementById('category');
 		  for( var i=0;i<select1.length;i++)
 			  {
 				  document.getElementById(select1[i].value+"div").style.display = 'none';
