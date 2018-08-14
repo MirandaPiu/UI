@@ -108,9 +108,9 @@ function  handleFiles(files)
     }
   }
 
+var area = new Array();
 function analyzeFile(con) 
 {
-	var area = new Array();
 	var ctgy = new Array();
 	area = con.split("~"); // 区
     var  n_area = area.length-1;
@@ -241,8 +241,46 @@ function save()
 	var value = obj.options[index].value; // 选中值
 	var s1=document.getElementById("Benchtextbox1").value;
 	//searching for id
-	
-	init("http://ayeaye.ee.ucla.edu/stool.stl?height=30&legs=5&radius=20");
+	area = content.split("~"); 
+    var  n_area = area.length-1;
+	var a=new Array();
+	var label=new Array();
+	var label_value=new Array();
+	a=area[index].split(";");
+	for(var row=1;row<a.length;row++)
+		{
+			var str=a[row];
+			if((str.indexOf("textbox"))>-1)
+				{
+					var tem=new Array();
+				    tem=str.split(/[,:,]/);
+					label[row]=tem[1].trim();
+					var this_id=text+"textbox"+row;
+					label_value[row]=document.getElementById(this_id).value;
+				}
+			else if((str.indexOf("dropdown"))>-1)
+				{
+					var tem=new Array();
+					tem=str.split(/[,]/);
+					label[row]=tem[1].trim();
+					var this_id=text+"dropdown"+row;
+					var tem_dropdown_value=document.getElementById(this_id).value;
+					label_value[row]=tem_dropdown_value.trim();
+				}
+		}
+	var partialUrl="http://ayeaye.ee.ucla.edu/stool.stl?";
+	for(var row=1;row<a.length-1;row++)
+		{
+			if(row>1)
+				{
+					partialUrl=partialUrl+"&"+label[row]+"="+label_value[row];
+				}
+			else
+				{
+					partialUrl=partialUrl+label[row]+"="+label_value[row];	
+				}
+		}
+	init(partialUrl);
 	render();
 }
 

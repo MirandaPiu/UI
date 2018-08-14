@@ -1,7 +1,7 @@
 Bench;
 	textbox, height: 10, 30;
 	textbox, radius, 15, 30;
-	dropdown, leg, 3, 3, 4, 5;
+	dropdown, legs, 3, 3, 4, 5;
 ~
 
 Table;
@@ -11,7 +11,7 @@ Table;
 	textbox, upper edge height: 10,15;
 	textbox, upper leg width: 3,10; 
 	textbox, bottom leg width: 3,10;
-	dropdown, thickness, 2, 0.2, 0.4, 0.6;
+	dropdown, thickness, 3, 0.2, 0.4, 0.6;
 	dropdown, material, 3, plastic, wooden, stone;
 	dropdown, connections, 2, edge to edge, edge to face;
 ~
