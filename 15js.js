@@ -1,20 +1,22 @@
-// JavaScript Document// JavaScript Document//--------------------------------------------------threejs-----------------------
+//---------------------------------------------------------WebGL threejs----------------------------------------------
 if (!Detector.webgl) {
     Detector.addGetWebGLMessage();
 }
 
-// All of these variables will be needed later, just ignore them for now.
+//variables used for canvas
 var container;
 var camera, controls, scene, renderer;
 var lighting, ambient, keyLight, fillLight, backLight;
 var windowHalfX = window.innerWidth / 2;
 var windowHalfY = window.innerHeight / 2;
 
-init("http://ayeaye.ee.ucla.edu/stool.stl?height=50&legs=3&radius=30");
-render();
+//import stl file 
+init("http://ayeaye.ee.ucla.edu/stool.stl?height=50&legs=3&radius=30");// backend url
+render();//render and update
 
 function init(url) {
-   	var footer=document.getElementById("footer");//---------------------------create in footer
+	//create a div under 3D model, in order to delete and recreate a new div once 3D model updates
+   	var footer=document.getElementById("footer");
 	container=document.createElement("div");
 	container.id="container1";
 	footer.appendChild(container);
@@ -24,13 +26,12 @@ function init(url) {
     camera.position.z = 200;
 
     // SCENE
-	
     scene = new THREE.Scene();
     scene.background = new THREE.Color("rgb(255,255,255)" );
 
     // OBJECT
     var loader = new THREE.STLLoader();
-    loader.load( url, function ( geometry ) {
+    loader.load( url, function ( geometry ) { // load stl file with "url"
 
         var material = new THREE.MeshPhongMaterial( { color: 0x331a00, specular: 0x111111, shininess: 200 } );
         var mesh = new THREE.Mesh( geometry, material );
@@ -83,51 +84,56 @@ function addShadowedLight( x, y, z, color, intensity ) {
     directionalLight.shadow.bias = -0.002;
 }
 
+// render without which 3D model can not shown
 function render() {
     requestAnimationFrame(render);
     controls.update();
     renderer.render(scene, camera);
 }
 
-//--------------------------------------------------------syntax analyze---------------
- // JavaScript Document// JavaScript Document// JavaScript Document// JavaScript Document
-var content;
+
+//--------------------------------------------------------file compiler-------------------------------------------------------------
+
+var content;// global variable used to store all the content in txt file 
+var area = new Array();// global variable used to store content sorted by different categories
+
+//read file
 function  handleFiles(files)
   {
-    if(files.length)
+    if(files.length)//if successful to read
     {
        var file = files[0];
        var reader = new FileReader();
        reader.onload = function()
        {
-		   //document.getElementById("in_width").innerHTML = this.result;
 		   content=this.result;
-		   analyzeFile(content);
+		   analyzeFile(content);//store in global varialbe: content
 	   };
-       reader.readAsText(file);
+       reader.readAsText(file);//type: text
     }
   }
 
-var area = new Array();
+//compiler
 function analyzeFile(con) 
 {
-	var ctgy = new Array();
-	area = con.split("~"); // 区
-    var  n_area = area.length-1;
-	//Catagory
+	var ctgy = new Array();//store categories names
+	area = con.split("~"); //separate by categories (use symbol ~)
+    var  n_area = area.length-1;//get rid of the empty area followed by the last symbol "~"
+	//collect categories names
 	for (var i = 0; i < n_area; i++) {
 		var a = new Array();
 		a = area[i].split(";");
 		ctgy[i] = a[0];
 	}
+	//create a select control for category 
 	var top = document.getElementById("top");
 	var select = document.createElement("select");
 	var div = document.createElement("div");
 	div.innerHTML = "Category: ";
-	div.id = "belowCatagory";
+	div.id = "belowCategory";
 	select.id = "category";
 	select.setAttribute('onchange','category_onchange(this[selectedIndex].value)');
-	for (i = 0; i < n_area; i++) 
+	for (i = 0; i < n_area; i++)//create select options  
 	{
 		var obj = document.createElement("option");
 		obj.value = ctgy[i];
@@ -136,72 +142,71 @@ function analyzeFile(con)
 		select.appendChild(obj);
 	}
 	div.appendChild(select);
-	top.appendChild(div);
-	
-	// inner Catagory
-	for (i = 0; i < n_area; i++) // separate area 2
+	top.appendChild(div);//append to the last control
+	//create controls one by one
+	for (i = 0; i < n_area; i++) // for each category
 	{
-		var belowSelect = document.getElementById("belowCatagory");
-		var cdiv = document.createElement("div");
-		var inrrow=new Array();
+		var belowSelect = document.getElementById("belowCategory");//implement under div:belowCategory
+		var cdiv = document.createElement("div");//create a new div for each category
+		var inrrow=new Array();//save each row of this category
 		inrrow=area[i].split(";");//like textbox, height: 20,50.
-		cdiv.id=inrrow[0]+"div";// chairdiv
+		cdiv.id=inrrow[0]+"div";//generate id for this new div
 		cdiv.innerHTML="<br/>";
 		var a_id=cdiv.id;
-		if(i===0)
+		if(i===0)//during initialization: only show the content belongs to the first category 
 			{
-				cdiv.style.display = "block";
+				cdiv.style.display = "block";//show
 			}
 		else{
-				cdiv.style.display = "none";
+				cdiv.style.display = "none";//hide
 		}
-		belowSelect.appendChild(cdiv);
+		belowSelect.appendChild(cdiv);//append 
+		//read every row in this category
 		for(var c=1;c<inrrow.length;c++)
 			{
-				var str=inrrow[c];
-				if((str.indexOf("textbox"))>-1)
+				var str=inrrow[c];//str has blanks, for example, str="   textbox"
+				if((str.indexOf("textbox"))>-1)//judge if it's a textbox
 					{
 						var row=new Array();
-						row=inrrow[c].split(/[,:,]/);
-						var top=document.getElementById(a_id);
+						row=inrrow[c].split(/[,:,]/);//separate textbox row
+						var top=document.getElementById(a_id);//create a new control
 						var input=document.createElement("input");
 						var div=document.createElement("div");
-						var x=row[1];
-						var y=row[2];
-						var z=row[3];
+						var x=row[1];//name of textbox
+						var y=row[2];//lower bound
+						var z=row[3];//higher bound
 						div.innerHTML=x+":<br/>";
 						input.type="text";
 						input.name="v";
 						input.value=y+"~"+z;
-						input.id=inrrow[0]+"textbox"+c;
-						input.onfocus=function()
+						input.id=inrrow[0]+"textbox"+c;//generate input id: category name+"textbox"+row number in this category
+						input.onfocus=function()//once click, value which shows as a hint disappear 
 						{
 							this.value="";
 						};
 						div.appendChild(input);
-						top.appendChild(div);
+						top.appendChild(div);//append this new control
 					}
-				else if((str.indexOf("dropdown"))>-1)
+				else if((str.indexOf("dropdown"))>-1)//judge if it's a select
 				{
 					var row=new Array();
-					row=inrrow[c].split(/[,]/);
-					var top=document.getElementById(a_id);
+					row=inrrow[c].split(/[,]/);//separate deopdown row
+					var top=document.getElementById(a_id);//create a new control
 					var select=document.createElement("select");
 					var div=document.createElement("div");
-					var ai=row[0];
-					var name=row[1];
-					var num=row[2];
-					var num2=row.length-3;
-					if(parseInt(num)!==num2)
+					var ai=row[0];//dropdown
+					var name=row[1];//name of dropdown
+					var num=row[2];//the third para: num of choices 
+					var num2=row.length-3;//nums of choices in reality
+					if(parseInt(num)!==num2)//judge whether num of choices is correct 
 						{
-							alert("Format error:"+ctgy[i]+",Row:"+c);
+							alert("Format error:"+ctgy[i]+",Row:"+c);//error reminder
 						}
 					div.innerHTML=name+": ";
-					//select.id=ai+i;
-					select.id=inrrow[0]+"dropdown"+c;
+					select.id=inrrow[0]+"dropdown"+c;//generate dropdown id: category name+"dropdown"+row number in this category 
 					for(var t=0;t<num;t++)
 						{
-							var obj=document.createElement("option");
+							var obj=document.createElement("option");//create options in selector
 							obj.value=row[3+t];
 							obj.text=row[3+t];
 							select.appendChild(obj);
@@ -213,6 +218,7 @@ function analyzeFile(con)
 			}
 	
 	}
+	//create a save button
 	var row = new Array();
 	var top = document.getElementById("medium");
 	var input = document.createElement("input");
@@ -226,7 +232,7 @@ function analyzeFile(con)
 	input.style.width = "15%";
 	div.appendChild(input);
 	top.appendChild(div);
-	document.getElementById("save").onclick=function(){save()};
+	document.getElementById("save").onclick=function(){save()};//once click
 }
 
 function save()
@@ -236,25 +242,24 @@ function save()
 	child.parentNode.removeChild(child);
 	//collect information online by id
 	var obj=document.getElementById("category");
-	var index=obj.selectedIndex;// 
-	var text = obj.options[index].text; // 选中文本
-	var value = obj.options[index].value; // 选中值
-	var s1=document.getElementById("Benchtextbox1").value;
+	var index=obj.selectedIndex;//confirm the category user select  
+	var text = obj.options[index].text; 
 	//searching for id
-	area = content.split("~"); 
+	area = content.split("~");//separate content by category
     var  n_area = area.length-1;
-	var a=new Array();
-	var label=new Array();
-	var label_value=new Array();
-	a=area[index].split(";");
-	for(var row=1;row<a.length;row++)
+	var a=new Array();//save each row in the category
+	//work out URL path
+	var label=new Array();//store the name of the control
+	var label_value=new Array();//store the value of the control
+	a=area[index].split(";");//separate this category (user select) by row
+	for(var row=1;row<a.length;row++)//collect names and values and store in array:label(), label_value()
 		{
 			var str=a[row];
 			if((str.indexOf("textbox"))>-1)
 				{
 					var tem=new Array();
 				    tem=str.split(/[,:,]/);
-					label[row]=tem[1].trim();
+					label[row]=tem[1].trim();//remove blank space
 					var this_id=text+"textbox"+row;
 					label_value[row]=document.getElementById(this_id).value;
 				}
@@ -262,14 +267,14 @@ function save()
 				{
 					var tem=new Array();
 					tem=str.split(/[,]/);
-					label[row]=tem[1].trim();
+					label[row]=tem[1].trim();//remove blank space
 					var this_id=text+"dropdown"+row;
 					var tem_dropdown_value=document.getElementById(this_id).value;
 					label_value[row]=tem_dropdown_value.trim();
 				}
 		}
-	var partialUrl="http://ayeaye.ee.ucla.edu/stool.stl?";
-	for(var row=1;row<a.length-1;row++)
+	var partialUrl="http://ayeaye.ee.ucla.edu/stool.stl?";//partial of the url
+	for(var row=1;row<a.length-1;row++)//compose the rest of the url
 		{
 			if(row>1)
 				{
@@ -280,11 +285,12 @@ function save()
 					partialUrl=partialUrl+label[row]+"="+label_value[row];	
 				}
 		}
+	//renew stl file
 	init(partialUrl);
 	render();
 }
 
-
+//switch contents by categories
 function category_onchange(val)
 {
 		  var select1 = document.getElementById('category');

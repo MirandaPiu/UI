@@ -1,7 +1,7 @@
 Bench;
 	textbox, height: 10, 30;
 	textbox, radius, 15, 30;
-	dropdown, legs, 3, 3, 4, 5;
+	dropdown, legs, 5, 3, 4, 5, 6, 7;
 ~
 
 Table;
