@@ -78,11 +78,11 @@ Chair;
   
   ### ID:  
   The id of a control is:   
-      **Its category** + **control function** + **row in the content of this category**.  
+    	  **Its category** + **control function** + **row in the content of this category**.  
   For example:    
-  Legs: Benchdropdown3  
-  Seat width: Chairtextbox5  
-  Connections(under Table): Tabledropdown9  
-  Connections(under Chair): Chairdropdown10  
+	  Legs: Benchdropdown3  
+	  Seat width: Chairtextbox5  
+	  Connections(under Table): Tabledropdown9  
+	  Connections(under Chair): Chairdropdown10  
  
 For more specific information, please turn to **Project Report**.
