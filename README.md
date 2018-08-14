@@ -1,7 +1,7 @@
 Instruction for developers
 ===========================
 ### Tool Instruction:
-  The tool I use is DW. One of the advantage is that it allows developers to have real-time view of how your website will look like. It’s mostly the same as you it on browsers, only if it comes to compatibility differences on various browsers or other problems from some libraries. Honestly, it will save you a lot of time.
+  The tool I use is DW. One advantage is that it allows developers to have real-time view of how your website will look like. It’s mostly the same as you it on browsers, only if it comes to compatibility differences on various browsers or other problems from some libraries. Honestly, it will save you a lot of time.
 
 ### How to Run The Code:
   **Step 1**:  
@@ -42,5 +42,47 @@ Instruction for developers
               *Inner Content*
         ~ 
   * Symbols and formats of textbox and dropdown are different.   
-    
   
+  Example:
+ 
+ Bench;
+	textbox, height: 10, 30;
+	textbox, radius, 15, 30;
+	dropdown, legs, 3, 3, 4, 5;
+~
+
+Table;
+	textbox, length: 30,80;
+	textbox, width: 30,80;
+	textbox, height: 40,60;
+	textbox, upper edge height: 10,15;
+	textbox, upper leg width: 3,10; 
+	textbox, bottom leg width: 3,10;
+	dropdown, thickness, 3, 0.2, 0.4, 0.6;
+	dropdown, material, 3, plastic, wooden, stone;
+	dropdown, connections, 2, edge to edge, edge to face;
+~
+
+Chair;
+	textbox, backrest length: 30,50;
+	textbox, backrest height: 30,50;
+	dropdown, backrest thickness, 3, 0.3, 0.5,1;
+	textbox, seat length: 10,15;
+	textbox, seat width: 3,10;
+	dropdown, seat thickness, 3, 0.3, 0.5,1;
+	textbox, leg height: 3,10;
+	textbox, leg width: 3,10;
+	dropdown, material, 3, plastic, wooden, stone;
+	dropdown, connections, 2, edge to edge, edge to face;
+~
+
+  ### ID:  
+  The id of a control is: 
+      **Its category** + **control function** + **row in the content of this category**.
+  For example:
+  Legs: Benchdropdown3
+  Seat width: Chairtextbox5
+  Connections(under Table): Tabledropdown9
+  Connections(under Chair): Chairdropdown10
+
+For more specific information, please turn to **Project Report**.
