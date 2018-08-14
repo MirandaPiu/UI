@@ -91,7 +91,7 @@ function render() {
 
 //--------------------------------------------------------syntax analyze---------------
  // JavaScript Document// JavaScript Document// JavaScript Document// JavaScript Document
- 
+var content;
 function  handleFiles(files)
   {
     if(files.length)
@@ -101,7 +101,7 @@ function  handleFiles(files)
        reader.onload = function()
        {
 		   //document.getElementById("in_width").innerHTML = this.result;
-		   var content=this.result;
+		   content=this.result;
 		   analyzeFile(content);
 	   };
        reader.readAsText(file);
@@ -113,7 +113,7 @@ function analyzeFile(con)
 	var area = new Array();
 	var ctgy = new Array();
 	area = con.split("~"); // 区
-	var n_area = area.length-1;
+    var  n_area = area.length-1;
 	//Catagory
 	for (var i = 0; i < n_area; i++) {
 		var a = new Array();
@@ -125,7 +125,7 @@ function analyzeFile(con)
 	var div = document.createElement("div");
 	div.innerHTML = "Category: ";
 	div.id = "belowCatagory";
-	select.id = "catagory";
+	select.id = "category";
 	select.setAttribute('onchange','category_onchange(this[selectedIndex].value)');
 	for (i = 0; i < n_area; i++) 
 	{
@@ -197,7 +197,8 @@ function analyzeFile(con)
 							alert("Format error:"+ctgy[i]+",Row:"+c);
 						}
 					div.innerHTML=name+": ";
-					select.id=ai+i;
+					//select.id=ai+i;
+					select.id=inrrow[0]+"dropdown"+c;
 					for(var t=0;t<num;t++)
 						{
 							var obj=document.createElement("option");
@@ -230,9 +231,16 @@ function analyzeFile(con)
 
 function save()
 {
+	//remove the exsisting canvas
 	var child=document.getElementById("container1");
 	child.parentNode.removeChild(child);
+	//collect information online by id
+	var obj=document.getElementById("category");
+	var index=obj.selectedIndex;// 
+	var text = obj.options[index].text; // 选中文本
+	var value = obj.options[index].value; // 选中值
 	var s1=document.getElementById("Benchtextbox1").value;
+	
 	init("http://ayeaye.ee.ucla.edu/stool.stl?height=30&legs=5&radius=20");
 	render();
 }
